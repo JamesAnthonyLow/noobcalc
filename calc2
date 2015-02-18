@@ -1,0 +1,176 @@
+import java.awt.EventQueue;
+
+
+public class MyCalcGUI {
+//-----------------------------------------------------------------------------------
+	/*Variables
+	 * 
+	 */
+	private static double input1, input2, sum = 0;
+	private static String out;
+	private static char operand;
+	private JFrame frame;
+	private static JTextField textField;
+	private static DecimalFormat df = new DecimalFormat("#0.00");
+	private static int j = 0;
+//-----------------------------------------------------------------------------------
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MyCalcGUI window = new MyCalcGUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+//-----------------------------------------------------------------------------------
+	public MyCalcGUI() {
+		initialize();
+	}
+//-----------------------------------------------------------------------------------
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);	
+		textField = new JTextField();
+		textField.setFont(new Font("Dialog", Font.PLAIN, 48));
+		textField.setBounds(0, 0, 440, 80);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		textField.requestFocus();
+//-----------------------------------------------------------------------------------
+		/*Subtract
+		 * 
+		 */
+		JButton button = new JButton("-");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				summate();
+				input1 = Double.parseDouble(textField.getText());
+				operand = '-';
+				textField.requestFocus();
+				textField.setText("");
+			}
+		});
+		button.setFont(new Font("Dialog", Font.PLAIN, 99));
+		button.setBounds(0, 79, 142, 89);
+		frame.getContentPane().add(button);
+//-----------------------------------------------------------------------------------
+		/*Add
+		 * 
+		 */
+		JButton button_3 = new JButton("+");
+		button_3.setFont(new Font("Dialog", Font.BOLD, 72));
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				summate();
+				input1 = Double.parseDouble(textField.getText());
+				operand = '+';
+				textField.requestFocus();
+				textField.setText("");
+			}
+		});
+		button_3.setBounds(135, 79, 161, 89);
+		frame.getContentPane().add(button_3);
+//-----------------------------------------------------------------------------------
+		/*Multiply
+		 * 
+		 */
+		JButton btnX = new JButton("X");
+		btnX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				summate();
+				input1 = Double.parseDouble(textField.getText());
+				operand = '*';
+				textField.requestFocus();
+				textField.setText("");
+			}
+		});
+		btnX.setFont(new Font("Dialog", Font.BOLD, 72));
+		btnX.setBounds(145, 180, 151, 89);
+		frame.getContentPane().add(btnX);
+//-----------------------------------------------------------------------------------
+		/*Divide
+		 * 
+		 */
+		JButton btnNewButton = new JButton("/");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				summate();
+				input1 = Double.parseDouble(textField.getText());
+				operand = '/';
+				textField.requestFocus();
+				textField.setText("");
+				
+			}
+		});
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 72));
+		btnNewButton.setBounds(0, 180, 142, 89);
+		frame.getContentPane().add(btnNewButton);			
+//-----------------------------------------------------------------------------------
+		/*Sum
+		 * 
+		 */		
+		JButton button_1 = new JButton("=");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				summate();
+				j=0;
+			}
+		});
+		button_1.setFont(new Font("Dialog", Font.BOLD, 72));
+		button_1.setBounds(297, 180, 151, 89);
+		frame.getContentPane().add(button_1);
+//-----------------------------------------------------------------------------------
+		/*Clear
+		 * 
+		 */
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearup();
+			}
+		});
+		btnClear.setFont(new Font("Dialog", Font.BOLD, 34));
+		btnClear.setBounds(297, 79, 151, 89);
+		frame.getContentPane().add(btnClear);
+	}
+//-----------------------------------------------------------------------------------
+		/*Equals function
+		 * 
+		 */
+public static void summate(){
+	j++;
+	if (j>1){
+	input2 = Double.parseDouble(textField.getText());
+	switch(operand){
+	case '-': sum = input1-input2;
+	break;
+	case '+': sum = input1+input2;
+	break;
+	case '/': sum = input1/input2;
+	break;
+	case '*': sum = input1*input2;
+	}
+	out = df.format(sum);
+	textField.setText(out);
+	textField.requestFocus();
+	}
+}
+//-----------------------------------------------------------------------------------
+	/*clear function
+	 * 
+	 */
+public static void clearup(){
+	textField.setText("");
+	input1=0;
+	input2=0;
+	operand=0;
+	textField.requestFocus();
+	j=0;
+}
+}
